@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
       Storage.deleteCategory(type, id);
       renderCategories();
       notifyDataChanged();
-      Utils.showNotification('Category deleted', 'success');
+      Utils.showNotification('Category deleted', 'error');
     }
   }
 

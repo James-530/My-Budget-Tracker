@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
       Storage.deleteBudget(id);
       renderBudgets();
       notifyDataChanged();
-      Utils.showNotification('Budget deleted', 'success');
+      Utils.showNotification('Budget deleted', 'error');
     }
   }
 

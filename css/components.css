@@ -536,6 +536,17 @@ tr:last-child td {
   color: var(--primary-text);
 }
 
+.budget-card-actions button.delete-btn,
+.action-btn.delete {
+  color: #EF4444;
+}
+
+.budget-card-actions button.delete-btn:hover,
+.action-btn.delete:hover {
+  color: #EF4444;
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
 .budget-progress {
   height: 8px;
   background-color: var(--primary-bg);
@@ -667,8 +678,13 @@ tr:last-child td {
   color: var(--primary-text);
 }
 
+.category-actions button.delete {
+  color: #EF4444;
+}
+
 .category-actions button.delete:hover {
   color: #EF4444;
+  background-color: rgba(239, 68, 68, 0.1);
 }
 
 /* Reports */
@@ -822,8 +838,13 @@ tr:last-child td {
   color: var(--primary-text);
 }
 
+.action-btn.delete {
+  color: #EF4444;
+}
+
 .action-btn.delete:hover {
   color: #EF4444;
+  background-color: rgba(239, 68, 68, 0.1);
 }
 
 /* Transaction type badge */
@@ -844,4 +865,124 @@ tr:last-child td {
 .type-badge.expense {
   background-color: rgba(239, 68, 68, 0.2);
   color: #EF4444;
+}
+
+/* ===========================================
+   Custom Scrollbars - LAGO Color Palette
+   =========================================== */
+
+/* WebKit (Chrome, Safari, Edge, Opera) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--primary-bg);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 5px;
+  border: 2px solid var(--primary-bg);
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--hover);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: var(--accent);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--primary-bg);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) var(--primary-bg);
+}
+
+/* Specific scrollable elements with custom styling */
+.sidebar-nav,
+.modal,
+.transaction-list,
+.table-container,
+.category-grid,
+.budget-cards,
+.charts-section .chart-container,
+.recent-transactions,
+.transactions-list,
+.reports-breakdown .table-container {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+/* WebKit specific for key scrollable areas */
+.sidebar-nav::-webkit-scrollbar,
+.modal::-webkit-scrollbar,
+.transaction-list::-webkit-scrollbar,
+.table-container::-webkit-scrollbar,
+.category-grid::-webkit-scrollbar,
+.budget-cards::-webkit-scrollbar,
+.chart-container::-webkit-scrollbar,
+.recent-transactions::-webkit-scrollbar,
+.transactions-list::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.sidebar-nav::-webkit-scrollbar-track,
+.modal::-webkit-scrollbar-track,
+.transaction-list::-webkit-scrollbar-track,
+.table-container::-webkit-scrollbar-track,
+.category-grid::-webkit-scrollbar-track,
+.budget-cards::-webkit-scrollbar-track,
+.chart-container::-webkit-scrollbar-track,
+.recent-transactions::-webkit-scrollbar-track,
+.transactions-list::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 4px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb,
+.modal::-webkit-scrollbar-thumb,
+.transaction-list::-webkit-scrollbar-thumb,
+.table-container::-webkit-scrollbar-thumb,
+.category-grid::-webkit-scrollbar-thumb,
+.budget-cards::-webkit-scrollbar-thumb,
+.chart-container::-webkit-scrollbar-thumb,
+.recent-transactions::-webkit-scrollbar-thumb,
+.transactions-list::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+  border: none;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb:hover,
+.modal::-webkit-scrollbar-thumb:hover,
+.transaction-list::-webkit-scrollbar-thumb:hover,
+.table-container::-webkit-scrollbar-thumb:hover,
+.category-grid::-webkit-scrollbar-thumb:hover,
+.budget-cards::-webkit-scrollbar-thumb:hover,
+.chart-container::-webkit-scrollbar-thumb:hover,
+.recent-transactions::-webkit-scrollbar-thumb:hover,
+.transactions-list::-webkit-scrollbar-thumb:hover {
+  background: var(--hover);
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb:active,
+.modal::-webkit-scrollbar-thumb:active,
+.transaction-list::-webkit-scrollbar-thumb:active,
+.table-container::-webkit-scrollbar-thumb:active,
+.category-grid::-webkit-scrollbar-thumb:active,
+.budget-cards::-webkit-scrollbar-thumb:active,
+.chart-container::-webkit-scrollbar-thumb:active,
+.recent-transactions::-webkit-scrollbar-thumb:active,
+.transactions-list::-webkit-scrollbar-thumb:active {
+  background: var(--accent);
 }

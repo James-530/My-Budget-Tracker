@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (confirm('Are you sure you want to delete ALL data? This cannot be undone.')) {
       if (confirm('This will permanently delete all transactions, budgets, categories, and settings. Continue?')) {
         Storage.clearAllData();
-        Utils.showNotification('All data cleared', 'success');
+        Utils.showNotification('All data cleared', 'error');
         window.dispatchEvent(new CustomEvent('lago-data-changed'));
         loadSettings();
       }

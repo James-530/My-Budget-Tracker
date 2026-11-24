@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
       Storage.deleteTransaction(id);
       renderTransactions();
       notifyDataChanged();
-      Utils.showNotification('Transaction deleted', 'success');
+      Utils.showNotification('Transaction deleted', 'error');
     }
   }
 
