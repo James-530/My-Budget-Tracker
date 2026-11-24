@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings - LAGO</title>
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <button class="menu-button" id="menu-btn" aria-label="Open menu">☰</button>
+      <h1 class="page-title">Settings</h1>
+    </div>
+  </header>
+  <div id="sidebar-container"></div>
+  <main>
+    <section class="settings-section">
+      <h2>Appearance</h2>
+      <div class="settings-grid">
+        <div class="setting-item">
+          <div class="setting-info">
+            <h3>Theme</h3>
+            <p>Choose your preferred color theme</p>
+          </div>
+          <select id="theme-select" class="setting-control">
+            <option value="dark">Dark</option>
+            <option value="light">Light</option>
+            <option value="system">System</option>
+          </select>
+        </div>
+        <div class="setting-item">
+          <div class="setting-info">
+            <h3>Currency</h3>
+            <p>Default currency for all amounts</p>
+          </div>
+          <select id="currency-select" class="setting-control">
+            <option value="PHP" selected>Philippine Peso (₱)</option>
+            <option value="USD">US Dollar ($)</option>
+            <option value="EUR">Euro (€)</option>
+            <option value="GBP">British Pound (£)</option>
+          </select>
+        </div>
+      </div>
+    </section>
+    <section class="settings-section">
+      <h2>Data Management</h2>
+      <div class="settings-grid">
+        <div class="setting-item">
+          <div class="setting-info">
+            <h3>Export Data</h3>
+            <p>Download all your data as a JSON file</p>
+          </div>
+          <button class="btn btn-secondary" id="export-btn">Export</button>
+        </div>
+        <div class="setting-item">
+          <div class="setting-info">
+            <h3>Import Data</h3>
+            <p>Restore data from a previously exported file</p>
+          </div>
+          <div class="import-wrapper">
+            <input type="file" id="import-file" accept=".json" hidden>
+            <button class="btn btn-secondary" id="import-btn">Import</button>
+          </div>
+        </div>
+        <div class="setting-item danger">
+          <div class="setting-info">
+            <h3>Clear All Data</h3>
+            <p>Permanently delete all transactions, budgets, and categories</p>
+          </div>
+          <button class="btn btn-danger" id="clear-data-btn">Clear Data</button>
+        </div>
+      </div>
+    </section>
+    <section class="settings-section">
+      <h2>About</h2>
+      <div class="settings-grid">
+        <div class="setting-item">
+          <div class="setting-info">
+            <h3>Version</h3>
+            <p>Current application version</p>
+          </div>
+          <span class="setting-value">1.0.0</span>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/storage.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/settings.js"></script>
+</body>
+</html>

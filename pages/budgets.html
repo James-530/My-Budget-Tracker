@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Budgets - LAGO</title>
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <button class="menu-button" id="menu-btn" aria-label="Open menu">☰</button>
+      <h1 class="page-title">Budgets</h1>
+      <button class="header-action" id="add-budget-btn">+ Add</button>
+    </div>
+  </header>
+  <div id="sidebar-container"></div>
+  <main>
+    <section class="budgets-overview">
+      <h2>Budget Overview</h2>
+      <div class="budget-summary-cards">
+        <div class="summary-card">
+          <h3>Total Budgeted</h3>
+          <p class="stat-value" id="total-budgeted">₱0.00</p>
+        </div>
+        <div class="summary-card">
+          <h3>Total Spent</h3>
+          <p class="stat-value" id="total-spent">₱0.00</p>
+        </div>
+        <div class="summary-card">
+          <h3>Remaining</h3>
+          <p class="stat-value" id="total-remaining">₱0.00</p>
+        </div>
+      </div>
+    </section>
+    <section class="budgets-list">
+      <div class="section-header">
+        <h2>Your Budgets</h2>
+      </div>
+      <div class="budget-cards" id="budget-cards">
+        <p class="empty-state">No budgets created yet. Click "+ Add" to create your first budget.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Add/Edit Budget Modal -->
+  <div class="modal-overlay" id="budget-modal-overlay"></div>
+  <div class="modal" id="budget-modal">
+    <div class="modal-header">
+      <h2 id="budget-modal-title">Add Budget</h2>
+      <button class="modal-close" id="budget-modal-close">&times;</button>
+    </div>
+    <form id="budget-form">
+      <input type="hidden" id="budget-id">
+      <div class="form-group">
+        <label for="budget-category">Category</label>
+        <select id="budget-category" required></select>
+      </div>
+      <div class="form-group">
+        <label for="budget-amount">Amount (₱)</label>
+        <input type="number" id="budget-amount" step="0.01" min="0.01" placeholder="0.00" required>
+      </div>
+      <div class="form-group">
+        <label for="budget-period">Period</label>
+        <select id="budget-period" required>
+          <option value="weekly">Weekly</option>
+          <option value="monthly" selected>Monthly</option>
+          <option value="yearly">Yearly</option>
+        </select>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary" id="budget-cancel-btn">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/storage.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/budgets.js"></script>
+</body>
+</html>
