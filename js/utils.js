@@ -1,5 +1,45 @@
 // Utility functions
 const Utils = {
+  // Lucide icon names mapped to category keys
+  iconMap: {
+    // Income icons
+    salary: 'wallet',
+    business: 'briefcase-business',
+    gift: 'gift',
+    money: 'banknote',
+
+    // Expense icons
+    housing: 'house',
+    food: 'utensils',
+    transport: 'car',
+    shopping: 'shopping-bag',
+    health: 'heart-pulse',
+    entertainment: 'film',
+    education: 'graduation-cap',
+    utilities: 'receipt',
+    vehicle: 'car',
+    travel: 'plane',
+    personal: 'user',
+    other: 'ellipsis',
+
+    // Action icons
+    edit: 'edit',
+    delete: 'trash-2',
+  },
+
+  // Get Lucide icon HTML by name
+  getIcon(name, size = 20) {
+    const lucideName = this.iconMap[name] || this.iconMap.other;
+    return `<i data-lucide="${lucideName}" style="width: ${size}px; height: ${size}px;"></i>`;
+  },
+
+  // Initialize Lucide icons (call after dynamic content insertion)
+  initLucide() {
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+  },
+
   // Generate unique ID
   generateId() {
     return Date.now().toString(36) + Math.random().toString(36).substr(2);

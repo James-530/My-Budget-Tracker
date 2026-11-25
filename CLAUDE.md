@@ -16,6 +16,7 @@ The application should have a clean, modern, responsive interface with a dark na
 - CSS3
 - Vanilla JavaScript
 - Chart.js
+- Lucide Icons (via CDN)
 - LocalStorage for initial data persistence
 
 Do not introduce additional frameworks, libraries, or dependencies unless explicitly requested.
@@ -78,38 +79,38 @@ Current structure (as implemented):
 
 LAGO/
 │
-├── index.html                    # Landing page
+├── index.html # Landing page
 │
-├── pages/                        # Feature pages
-│   ├── dashboard.html
-│   ├── transactions.html
-│   ├── budgets.html
-│   ├── categories.html
-│   ├── reports.html
-│   └── settings.html
+├── pages/ # Feature pages
+│ ├── dashboard.html
+│ ├── transactions.html
+│ ├── budgets.html
+│ ├── categories.html
+│ ├── reports.html
+│ └── settings.html
 │
-├── components/                   # Shared HTML components
-│   └── sidebar.txt               # Sidebar navigation (loaded via fetch)
+├── components/ # Shared HTML components
+│ └── sidebar.txt # Sidebar navigation (loaded via fetch)
 │
 ├── css/
-│   ├── variables.css             # CSS custom properties (colors, spacing)
-│   ├── layout.css                # Page layout, header, main, responsive grid
-│   └── components.css            # UI components (cards, tables, modals, forms, etc.)
+│ ├── variables.css # CSS custom properties (colors, spacing)
+│ ├── layout.css # Page layout, header, main, responsive grid
+│ └── components.css # UI components (cards, tables, modals, forms, etc.)
 │
 ├── js/
-│   ├── app.js                    # App initialization, sidebar loading, navigation
-│   ├── storage.js                # LocalStorage operations and data persistence
-│   ├── utils.js                  # Shared helper functions (formatting, calculations, etc.)
-│   │
-│   ├── dashboard.js              # Dashboard calculations and rendering
-│   ├── transactions.js           # Transaction management
-│   ├── budgets.js                # Budget calculations and management
-│   ├── categories.js             # Category management
-│   ├── reports.js                # Financial reports and chart generation
-│   └── settings.js               # Application preferences
+│ ├── app.js # App initialization, sidebar loading, navigation
+│ ├── storage.js # LocalStorage operations and data persistence
+│ ├── utils.js # Shared helper functions (formatting, calculations, etc.)
+│ │
+│ ├── dashboard.js # Dashboard calculations and rendering
+│ ├── transactions.js # Transaction management
+│ ├── budgets.js # Budget calculations and management
+│ ├── categories.js # Category management
+│ ├── reports.js # Financial reports and chart generation
+│ └── settings.js # Application preferences
 │
 ├── assets/
-│   └── (icons, images as needed)
+│ └── (icons, images as needed)
 │
 ├── CLAUDE.md
 ├── README.md
@@ -154,17 +155,17 @@ Avoid introducing a complex component system or framework.
 
 Keep application logic separated by feature.
 
-| File | Responsibility |
-|------|----------------|
-| `app.js` | Application initialization, sidebar loading, active nav link highlighting, mobile menu toggle |
-| `storage.js` | LocalStorage operations: transactions, budgets, categories, settings, export/import |
-| `utils.js` | Formatting (currency, date), calculations (totals, grouping), helpers (debounce, notifications, HTML escaping) |
-| `dashboard.js` | Dashboard stats, charts (expense doughnut, income vs expense bar), recent transactions |
-| `transactions.js` | Transaction CRUD, filtering, modal form handling |
-| `budgets.js` | Budget CRUD, period calculations (weekly/monthly/yearly), progress visualization |
-| `categories.js` | Category CRUD (income/expense tabs), modal form handling |
-| `reports.js` | Period selection, summary cards, pie/line charts, category breakdown table |
-| `settings.js` | Theme (dark/light/system), currency, data export/import/clear |
+| File              | Responsibility                                                                                                 |
+| ----------------- | -------------------------------------------------------------------------------------------------------------- |
+| `app.js`          | Application initialization, sidebar loading, active nav link highlighting, mobile menu toggle                  |
+| `storage.js`      | LocalStorage operations: transactions, budgets, categories, settings, export/import                            |
+| `utils.js`        | Formatting (currency, date), calculations (totals, grouping), helpers (debounce, notifications, HTML escaping) |
+| `dashboard.js`    | Dashboard stats, charts (expense doughnut, income vs expense bar), recent transactions                         |
+| `transactions.js` | Transaction CRUD, filtering, modal form handling                                                               |
+| `budgets.js`      | Budget CRUD, period calculations (weekly/monthly/yearly), progress visualization                               |
+| `categories.js`   | Category CRUD (income/expense tabs), modal form handling                                                       |
+| `reports.js`      | Period selection, summary cards, pie/line charts, category breakdown table                                     |
+| `settings.js`     | Theme (dark/light/system), currency, data export/import/clear                                                  |
 
 Do not put every function into `app.js`.
 
@@ -186,6 +187,7 @@ Use `app.js` only for application initialization and coordinating shared functio
 ### Data Structures
 
 **Transaction**
+
 ```js
 {
   id: string,
@@ -198,6 +200,7 @@ Use `app.js` only for application initialization and coordinating shared functio
 ```
 
 **Budget**
+
 ```js
 {
   id: string,
@@ -208,17 +211,19 @@ Use `app.js` only for application initialization and coordinating shared functio
 ```
 
 **Category**
+
 ```js
 {
   id: string,
   name: string,
-  icon: string,    // emoji
+  icon: string,    // Lucide icon key (e.g., 'home', 'utensils', 'banknote')
   color: string,   // hex color
   type: 'income' | 'expense'
 }
 ```
 
 **Settings**
+
 ```js
 {
   theme: 'dark' | 'light' | 'system',
@@ -315,31 +320,37 @@ If a requested change requires modifying additional files, explain why.
 ## 11. Key Implementation Notes
 
 ### Sidebar Loading
+
 - `app.js` loads `components/sidebar.txt` via `fetch()`
 - Path resolution handles both root (`index.html`) and `/pages/` subdirectory
 - Active nav link set via `setActiveNavLink()` based on current pathname
 
 ### Chart.js Usage
+
 - Loaded via CDN in each page that needs it
 - Chart instances stored in module-scoped variables for proper cleanup (`destroy()`)
 - Responsive: `maintainAspectRatio: false`, containers handle sizing
 
 ### Data Change Notification
+
 - Pages dispatch `lago-data-changed` custom event after mutations
 - Dashboard and other pages listen for this event to re-render
 - Also listens to `storage` event for cross-tab sync
 
 ### Theme System
+
 - `settings.js` applies theme via `document.documentElement.setAttribute('data-theme', ...)`
 - CSS variables can be overridden with `[data-theme="light"]` selectors if light theme is implemented
 - System preference detected via `matchMedia('(prefers-color-scheme: dark)')`
 
 ### Currency Formatting
+
 - Centralized in `Utils.formatCurrency(amount, currency)`
 - Currency symbol map in utils, defaults to PHP (₱)
 - Settings page allows user to change default currency
 
 ### Form Validation
+
 - HTML5 validation attributes (`required`, `min`, `step`, `type`)
 - Additional sanitization in submit handlers (`Utils.toTitleCase`, `Utils.escapeHtml`)
 - Amount inputs use `step="0.01"` and `min="0.01"`

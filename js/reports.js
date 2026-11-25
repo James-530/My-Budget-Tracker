@@ -245,11 +245,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     breakdownBody.innerHTML = grouped.map(g => {
       const percentage = totalExpenses > 0 ? ((g.total / totalExpenses) * 100).toFixed(1) : 0;
+      const icon = Utils.getIcon(g.icon, 18);
       return `
         <tr>
           <td>
             <span class="category-cell">
-              <span class="category-icon" style="color: ${g.color}">${g.icon}</span>
+              <span class="category-icon" style="color: ${g.color}">${icon}</span>
               ${g.name}
             </span>
           </td>
@@ -259,6 +260,9 @@ document.addEventListener('DOMContentLoaded', () => {
         </tr>
       `;
     }).join('');
+
+    // Initialize Lucide icons for dynamically added content
+    Utils.initLucide();
   }
 
   // Event listeners

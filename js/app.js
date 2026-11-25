@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Initialize Lucide icons for static HTML elements (menu button, modal close buttons, etc.)
+  Utils.initLucide();
+
   const menuBtn = document.getElementById("menu-btn");
   const sidebarContainer = document.getElementById("sidebar-container");
 
@@ -49,6 +52,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Set active nav link based on current page
         setActiveNavLink();
+
+        // Initialize Lucide icons for sidebar
+        Utils.initLucide();
       }
     });
 });

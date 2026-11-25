@@ -71,8 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
               <span class="category">${budget.period.charAt(0).toUpperCase() + budget.period.slice(1)}</span>
             </div>
             <div class="budget-card-actions">
-              <button class="action-btn edit-btn" data-id="${budget.id}">✏️</button>
-              <button class="action-btn delete delete-btn" data-id="${budget.id}">🗑️</button>
+              <button class="action-btn edit-btn" data-id="${budget.id}">${Utils.getIcon('edit', 16)}</button>
+              <button class="action-btn delete delete-btn" data-id="${budget.id}">${Utils.getIcon('delete', 16)}</button>
             </div>
           </div>
           <div class="budget-progress">
@@ -93,6 +93,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.budget-card .delete-btn').forEach(btn => {
       btn.addEventListener('click', () => deleteBudget(btn.dataset.id));
     });
+
+    // Initialize Lucide icons for dynamically added content
+    Utils.initLucide();
   }
 
   function isWithinPeriod(dateStr, period) {
@@ -153,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
     categories.expense.forEach(cat => {
       const option = document.createElement('option');
       option.value = cat.id;
-      option.textContent = `${cat.icon} ${cat.name}`;
+      option.textContent = `${cat.name}`;
       budgetCategory.appendChild(option);
     });
   }

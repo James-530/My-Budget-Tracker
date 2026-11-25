@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     transactionsBody.innerHTML = transactions.map(t => {
       const category = Utils.getCategoryById(categories, t.categoryId);
-      const icon = category?.icon || '📦';
+      const icon = category ? Utils.getIcon(category.icon, 18) : Utils.getIcon('other', 18);
       const typeClass = t.type === 'income' ? 'income' : 'expense';
       const sign = t.type === 'income' ? '+' : '-';
 
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <td>${Utils.formatDate(t.date)}</td>
           <td>
             <span class="category-cell">
-              <span class="category-icon">${icon}</span>
+              <span class="category-icon" style="color: ${category?.color || 'var(--secondary-text)'}">${icon}</span>
               ${category?.name || 'Unknown'}
             </span>
           </td>
@@ -62,8 +62,8 @@ document.addEventListener('DOMContentLoaded', () => {
           <td class="${typeClass}">${sign}${Utils.formatCurrency(t.amount)}</td>
           <td>
             <div class="action-buttons">
-              <button class="action-btn edit-btn" data-id="${t.id}">Edit</button>
-              <button class="action-btn delete delete-btn" data-id="${t.id}">Delete</button>
+              <button class="action-btn edit-btn" data-id="${t.id}">${Utils.getIcon('edit', 16)}</button>
+              <button class="action-btn delete delete-btn" data-id="${t.id}">${Utils.getIcon('delete', 16)}</button>
             </div>
           </td>
         </tr>
@@ -77,6 +77,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.delete-btn').forEach(btn => {
       btn.addEventListener('click', () => deleteTransaction(btn.dataset.id));
     });
+
+    // Initialize Lucide icons for dynamically added content
+    Utils.initLucide();
   }
 
   function populateCategoryFilter(categories, type) {
@@ -87,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
     categoryList.forEach(cat => {
       const option = document.createElement('option');
       option.value = cat.id;
-      option.textContent = `${cat.icon} ${cat.name}`;
+      option.textContent = `${cat.name}`;
       categoryFilter.appendChild(option);
     });
 
@@ -140,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
     categoryList.forEach(cat => {
       const option = document.createElement('option');
       option.value = cat.id;
-      option.textContent = `${cat.icon} ${cat.name}`;
+      option.textContent = `${cat.name}`;
       transCategory.appendChild(option);
     });
   }

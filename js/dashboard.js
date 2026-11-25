@@ -158,13 +158,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     recentTransactions.innerHTML = recent.map(t => {
       const category = Utils.getCategoryById(categories, t.categoryId);
-      const icon = category?.icon || '📦';
+      const icon = category ? Utils.getIcon(category.icon, 20) : Utils.getIcon('other', 20);
       const typeClass = t.type === 'income' ? 'income' : 'expense';
       const sign = t.type === 'income' ? '+' : '-';
 
       return `
         <div class="transaction-item">
-          <div class="transaction-icon">${icon}</div>
+          <div class="transaction-icon" style="color: ${category?.color || 'var(--secondary-text)'}">${icon}</div>
           <div class="transaction-details">
             <div class="transaction-description">${Utils.escapeHtml(t.description)}</div>
             <div class="transaction-meta">
@@ -176,6 +176,9 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       `;
     }).join('');
+
+    // Initialize Lucide icons for dynamically added content
+    Utils.initLucide();
   }
 
   // Initial render

@@ -106,4 +106,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initial load
   loadSettings();
+  Utils.initLucide();
 });

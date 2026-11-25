@@ -26,11 +26,11 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       incomeGrid.innerHTML = categories.income.map(cat => `
         <div class="category-card" data-id="${cat.id}">
-          <div class="category-icon" style="color: ${cat.color}">${cat.icon}</div>
+          <div class="category-icon" style="color: ${cat.color}">${Utils.getIcon(cat.icon, 36)}</div>
           <h3 class="category-name">${cat.name}</h3>
           <div class="category-actions">
-            <button class="action-btn edit-btn" data-id="${cat.id}" data-type="income">Edit</button>
-            <button class="action-btn delete delete-btn" data-id="${cat.id}" data-type="income">Delete</button>
+            <button class="action-btn edit-btn" data-id="${cat.id}" data-type="income">${Utils.getIcon('edit', 16)}</button>
+            <button class="action-btn delete delete-btn" data-id="${cat.id}" data-type="income">${Utils.getIcon('delete', 16)}</button>
           </div>
         </div>
       `).join('');
@@ -42,11 +42,11 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       expenseGrid.innerHTML = categories.expense.map(cat => `
         <div class="category-card" data-id="${cat.id}">
-          <div class="category-icon" style="color: ${cat.color}">${cat.icon}</div>
+          <div class="category-icon" style="color: ${cat.color}">${Utils.getIcon(cat.icon, 36)}</div>
           <h3 class="category-name">${cat.name}</h3>
           <div class="category-actions">
-            <button class="action-btn edit-btn" data-id="${cat.id}" data-type="expense">Edit</button>
-            <button class="action-btn delete delete-btn" data-id="${cat.id}" data-type="expense">Delete</button>
+            <button class="action-btn edit-btn" data-id="${cat.id}" data-type="expense">${Utils.getIcon('edit', 16)}</button>
+            <button class="action-btn delete delete-btn" data-id="${cat.id}" data-type="expense">${Utils.getIcon('delete', 16)}</button>
           </div>
         </div>
       `).join('');
@@ -59,6 +59,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.category-card .delete-btn').forEach(btn => {
       btn.addEventListener('click', () => deleteCategory(btn.dataset.type, btn.dataset.id));
     });
+
+    // Initialize Lucide icons for dynamically added content
+    Utils.initLucide();
   }
 
   function openModal(type, categoryId = null) {

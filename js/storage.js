@@ -14,24 +14,24 @@ const Storage = {
     BUDGETS: [],
     CATEGORIES: {
       income: [
-        { id: 'income_salary', name: 'Salary', icon: '💵', color: '#22C55E', type: 'income' },
-        { id: 'income_business', name: 'Business', icon: '💼', color: '#3B82F6', type: 'income' },
-        { id: 'income_gift', name: 'Gift', icon: '🎁', color: '#A855F7', type: 'income' },
-        { id: 'income_other', name: 'Other', icon: '💰', color: '#FBBF24', type: 'income' }
+        { id: 'income_salary', name: 'Salary', icon: 'salary', color: '#22C55E', type: 'income' },
+        { id: 'income_business', name: 'Business', icon: 'business', color: '#3B82F6', type: 'income' },
+        { id: 'income_gift', name: 'Gift', icon: 'gift', color: '#A855F7', type: 'income' },
+        { id: 'income_other', name: 'Other', icon: 'other', color: '#FBBF24', type: 'income' }
       ],
       expense: [
-        { id: 'expense_housing', name: 'Housing', icon: '🏠', color: '#EF4444', type: 'expense' },
-        { id: 'expense_food', name: 'Food', icon: '🍔', color: '#F97316', type: 'expense' },
-        { id: 'expense_transport', name: 'Transport', icon: '🚌', color: '#06B6D4', type: 'expense' },
-        { id: 'expense_shopping', name: 'Shopping', icon: '🛍️', color: '#EC4899', type: 'expense' },
-        { id: 'expense_health', name: 'Health', icon: '🏥', color: '#22C55E', type: 'expense' },
-        { id: 'expense_entertainment', name: 'Entertainment', icon: '🎮', color: '#A855F7', type: 'expense' },
-        { id: 'expense_education', name: 'Education', icon: '📚', color: '#3B82F6', type: 'expense' },
-        { id: 'expense_utilities', name: 'Utilities', icon: '⚡', color: '#FBBF24', type: 'expense' },
-        { id: 'expense_vehicle', name: 'Vehicle', icon: '🚗', color: '#64748B', type: 'expense' },
-        { id: 'expense_travel', name: 'Travel', icon: '✈️', color: '#14B8A6', type: 'expense' },
-        { id: 'expense_personal', name: 'Personal', icon: '💄', color: '#F472B6', type: 'expense' },
-        { id: 'expense_other', name: 'Other', icon: '📦', color: '#9CA3AF', type: 'expense' }
+        { id: 'expense_housing', name: 'Housing', icon: 'housing', color: '#EF4444', type: 'expense' },
+        { id: 'expense_food', name: 'Food', icon: 'food', color: '#F97316', type: 'expense' },
+        { id: 'expense_transport', name: 'Transport', icon: 'transport', color: '#06B6D4', type: 'expense' },
+        { id: 'expense_shopping', name: 'Shopping', icon: 'shopping', color: '#EC4899', type: 'expense' },
+        { id: 'expense_health', name: 'Health', icon: 'health', color: '#22C55E', type: 'expense' },
+        { id: 'expense_entertainment', name: 'Entertainment', icon: 'entertainment', color: '#A855F7', type: 'expense' },
+        { id: 'expense_education', name: 'Education', icon: 'education', color: '#3B82F6', type: 'expense' },
+        { id: 'expense_utilities', name: 'Utilities', icon: 'utilities', color: '#FBBF24', type: 'expense' },
+        { id: 'expense_vehicle', name: 'Vehicle', icon: 'vehicle', color: '#64748B', type: 'expense' },
+        { id: 'expense_travel', name: 'Travel', icon: 'travel', color: '#14B8A6', type: 'expense' },
+        { id: 'expense_personal', name: 'Personal', icon: 'personal', color: '#F472B6', type: 'expense' },
+        { id: 'expense_other', name: 'Other', icon: 'other', color: '#9CA3AF', type: 'expense' }
       ]
     },
     SETTINGS: {
