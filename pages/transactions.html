@@ -19,7 +19,7 @@
   <div id="sidebar-container"></div>
   <main>
     <section class="transactions-header">
-      <div class="filter-group">
+      <div class="filter-group" id="filter-group">
         <select id="type-filter">
           <option value="all">All Types</option>
           <option value="income">Income</option>
@@ -32,7 +32,7 @@
       </div>
     </section>
     <section class="transactions-list">
-      <div class="table-container">
+      <div class="table-container desktop-only">
         <table id="transactions-table">
           <thead>
             <tr>
@@ -50,6 +50,9 @@
             </tr>
           </tbody>
         </table>
+      </div>
+      <div class="mobile-only transaction-list" id="mobile-transactions-list">
+        <!-- Will be populated via JS -->
       </div>
     </section>
   </main>
@@ -91,6 +94,42 @@
         <button type="submit" class="btn btn-primary">Save</button>
       </div>
     </form>
+  </div>
+
+  <!-- Transaction Details Modal -->
+  <div class="modal-overlay" id="details-modal-overlay"></div>
+  <div class="modal" id="details-modal">
+    <div class="modal-header">
+      <h2>Transaction Details</h2>
+      <button class="modal-close" id="details-modal-close" aria-label="Close"><i data-lucide="x" style="width: 24px; height: 24px;"></i></button>
+    </div>
+    <div class="details-content">
+      <div class="detail-item">
+        <label>Date</label>
+        <p id="detail-date"></p>
+      </div>
+      <div class="detail-item">
+        <label>Category</label>
+        <p id="detail-category"></p>
+      </div>
+      <div class="detail-item">
+        <label>Description</label>
+        <p id="detail-description" style="white-space: normal; overflow-wrap: anywhere;"></p>
+      </div>
+      <div class="detail-item">
+        <label>Type</label>
+        <p id="detail-type"></p>
+      </div>
+      <div class="detail-item">
+        <label>Amount</label>
+        <p id="detail-amount" class="stat-value" style="font-size: 20px;"></p>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button type="button" class="btn btn-danger" id="details-delete-btn">Delete Transaction</button>
+      <button type="button" class="btn btn-primary" id="details-edit-btn">Edit Transaction</button>
+      <button type="button" class="btn btn-secondary" id="details-close-btn">Close</button>
+    </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

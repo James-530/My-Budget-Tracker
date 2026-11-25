@@ -17,7 +17,50 @@ document.addEventListener('DOMContentLoaded', () => {
   const transType = document.getElementById('trans-type');
   const transCategory = document.getElementById('trans-category');
 
+  const detailsModalOverlay = document.getElementById('details-modal-overlay');
+  const detailsModal = document.getElementById('details-modal');
+  const detailsModalClose = document.getElementById('details-modal-close');
+  const detailsCloseBtn = document.getElementById('details-close-btn');
+  const detailsEditBtn = document.getElementById('details-edit-btn');
+  const detailsDeleteBtn = document.getElementById('details-delete-btn');
+
   let editingTransactionId = null;
+
+  function showDetails(id) {
+    const transaction = Storage.getTransactions().find(t => t.id === id);
+    if (!transaction) return;
+
+    const categories = Storage.getCategories();
+    const category = Utils.getCategoryById(categories, transaction.categoryId);
+    const typeClass = transaction.type === 'income' ? 'income' : 'expense';
+    const sign = transaction.type === 'income' ? '+' : '-';
+
+    document.getElementById('detail-date').textContent = Utils.formatDate(transaction.date);
+    document.getElementById('detail-category').textContent = category?.name || 'Unknown';
+    document.getElementById('detail-description').textContent = transaction.description;
+    document.getElementById('detail-type').innerHTML = `<span class="type-badge ${typeClass}">${transaction.type}</span>`;
+    document.getElementById('detail-amount').textContent = `${sign}${Utils.formatCurrency(transaction.amount)}`;
+    document.getElementById('detail-amount').className = `stat-value ${typeClass}`;
+
+    detailsEditBtn.onclick = () => {
+      closeDetailsModal();
+      openModal(transaction.id);
+    };
+
+    detailsDeleteBtn.onclick = () => {
+      closeDetailsModal();
+      deleteTransaction(transaction.id);
+    };
+
+    detailsModalOverlay.classList.add('active');
+    detailsModal.classList.add('active');
+    Utils.initLucide();
+  }
+
+  function closeDetailsModal() {
+    detailsModalOverlay.classList.remove('active');
+    detailsModal.classList.remove('active');
+  }
 
   function renderTransactions() {
     let transactions = Storage.getTransactions();
@@ -39,6 +82,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (transactions.length === 0) {
       transactionsBody.innerHTML = '<tr class="empty-row"><td colspan="6">No transactions found</td></tr>';
+      const mobileList = document.getElementById('mobile-transactions-list');
+      if (mobileList) {
+        mobileList.innerHTML = '<p class="empty-state">No transactions yet</p>';
+      }
       return;
     }
 
@@ -49,18 +96,18 @@ document.addEventListener('DOMContentLoaded', () => {
       const sign = t.type === 'income' ? '+' : '-';
 
       return `
-        <tr>
-          <td>${Utils.formatDate(t.date)}</td>
-          <td>
+        <tr data-id="${t.id}" class="transaction-row">
+          <td data-label="Date">${Utils.formatDate(t.date)}</td>
+          <td data-label="Category">
             <span class="category-cell">
               <span class="category-icon" style="color: ${category?.color || 'var(--secondary-text)'}">${icon}</span>
               ${category?.name || 'Unknown'}
             </span>
           </td>
-          <td>${Utils.escapeHtml(t.description)}</td>
-          <td><span class="type-badge ${typeClass}">${t.type}</span></td>
-          <td class="${typeClass}">${sign}${Utils.formatCurrency(t.amount)}</td>
-          <td>
+          <td data-label="Description" class="description-cell">${Utils.escapeHtml(t.description)}</td>
+          <td data-label="Type"><span class="type-badge ${typeClass}">${t.type}</span></td>
+          <td data-label="Amount" class="${typeClass}">${sign}${Utils.formatCurrency(t.amount)}</td>
+          <td data-label="Actions">
             <div class="action-buttons">
               <button class="action-btn edit-btn" data-id="${t.id}">${Utils.getIcon('edit', 16)}</button>
               <button class="action-btn delete delete-btn" data-id="${t.id}">${Utils.getIcon('delete', 16)}</button>
@@ -70,7 +117,46 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
     }).join('');
 
-    // Add event listeners to action buttons
+    const mobileList = document.getElementById('mobile-transactions-list');
+    if (mobileList) {
+      mobileList.innerHTML = transactions.map(t => {
+        const category = Utils.getCategoryById(categories, t.categoryId);
+        const icon = category ? Utils.getIcon(category.icon, 20) : Utils.getIcon('other', 20);
+        const typeClass = t.type === 'income' ? 'income' : 'expense';
+        const sign = t.type === 'income' ? '+' : '-';
+
+        return `
+          <div class="transaction-item" data-id="${t.id}" style="cursor: pointer;">
+            <div class="transaction-icon" style="color: ${category?.color || 'var(--secondary-text)'}">${icon}</div>
+            <div class="transaction-details">
+              <div class="transaction-description">${Utils.escapeHtml(t.description)}</div>
+              <div class="transaction-meta">
+                <span class="transaction-category">${category?.name || 'Unknown'}</span>
+                <span class="transaction-date">${Utils.formatDate(t.date)}</span>
+              </div>
+            </div>
+            <div class="transaction-amount ${typeClass}">${sign}${Utils.formatCurrency(t.amount)}</div>
+          </div>
+        `;
+      }).join('');
+
+      // Add click listener for mobile transaction items to show details
+      mobileList.querySelectorAll('.transaction-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+          showDetails(item.dataset.id);
+        });
+      });
+    }
+
+    // Add event listeners
+    document.querySelectorAll('.transaction-row td:not(:last-child)').forEach(td => {
+      td.addEventListener('click', (e) => {
+        if (!e.target.closest('.action-buttons')) {
+          showDetails(td.closest('tr').dataset.id);
+        }
+      });
+    });
+
     document.querySelectorAll('.edit-btn').forEach(btn => {
       btn.addEventListener('click', () => openModal(btn.dataset.id));
     });
@@ -173,6 +259,10 @@ document.addEventListener('DOMContentLoaded', () => {
   modalClose.addEventListener('click', closeModal);
   cancelBtn.addEventListener('click', closeModal);
   modalOverlay.addEventListener('click', closeModal);
+
+  detailsModalClose.addEventListener('click', closeDetailsModal);
+  detailsCloseBtn.addEventListener('click', closeDetailsModal);
+  detailsModalOverlay.addEventListener('click', closeDetailsModal);
 
   transType.addEventListener('change', () => {
     const categories = Storage.getCategories();
